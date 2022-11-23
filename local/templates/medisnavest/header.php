@@ -5,9 +5,9 @@ use \Bitrix\Main\Page\Asset;
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
     die();
 }
-
+$page = $APPLICATION->GetCurPage(false);
 ?>
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="<?= LANGUAGE_ID ?>" class="no-js">
     <head>
         <title><? $APPLICATION->ShowTitle() ?></title>
@@ -23,7 +23,9 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
         Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/js/min.js");
         Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/js/main.js");
         ?>
-        <style>body{opacity: 0;}</style>
+        <style>body {
+                opacity: 0;
+            }</style>
         <? $APPLICATION->ShowHead(); ?>
     </head>
 
@@ -54,7 +56,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
                         </div>
                     </div>
                     <div class="head-logo">
-                        <a href="/"><img data-src="<?=SITE_TEMPLATE_PATH?>/img/static/logo.svg" alt="alt"></a>
+                        <a href="/"><img data-src="<?= SITE_TEMPLATE_PATH ?>/img/static/logo.svg" alt="alt"></a>
                     </div>
                     <nav class="head-nav">
                         <span class="menu_close-btn ico-close"></span>
@@ -69,18 +71,22 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
                         </ul>
                         <div class="mobile_header-content">
                             <a href="tel:+74012522440" class="head_phone-number">+7 (4012) 522-440</a>
-                            <a href="#callback" data-toggle="modal" class="callback-btn main-btn"><span class="ico-phone"></span>Связаться с нами</a>
+                            <a href="#callback" data-toggle="modal" class="callback-btn main-btn"><span
+                                        class="ico-phone"></span>Связаться с нами</a>
                         </div>
                     </nav>
                     <form action="#" class="search-form">
                         <input type="text" class="search-form_input" placeholder="Поиск по сайту">
-                        <div class="wrapper_search-form_submit ico-search"><input type="submit" class="search-form_submit" value=""></div>
+                        <div class="wrapper_search-form_submit ico-search"><input type="submit"
+                                                                                  class="search-form_submit" value="">
+                        </div>
                     </form>
                     <span class="head_search-icon ico-search"></span>
                 </div>
                 <div class="head_right-column">
                     <a href="tel:+74012522440" class="head_phone-number">+7 (4012) 522-440</a>
-                    <a href="#callback" data-toggle="modal" class="callback-btn"><span class="ico-phone"></span>Связаться с нами</a>
+                    <a href="#callback" data-toggle="modal" class="callback-btn"><span class="ico-phone"></span>Связаться
+                        с нами</a>
                 </div>
             </div>
         </div>
