@@ -28,7 +28,7 @@ $(window).on('load', function() {
 			$('.scroll-to-top').addClass('scroll-to-top-visible');
 		} else {
 			$('.scroll-to-top').removeClass('scroll-to-top-visible');
-		}	
+		}
 	});
 		if(/iPhone|iPad|iPod/i.test(navigator.userAgent)){
 	  	$('.element').addClass('is-pad');
@@ -112,7 +112,7 @@ jQuery(document).ready(function($) {
 			$('.search-form').fadeOut(200);
 		}
 	});
-	
+
 
 	$('.actions-slider').slick({
 		slidesToShow: 3,
@@ -125,7 +125,7 @@ jQuery(document).ready(function($) {
 				slidesToShow: 2,
 				slidesToScroll: 1,
 			}
-		}, 
+		},
 		{
 			breakpoint: 440,
 			settings: {
@@ -135,7 +135,7 @@ jQuery(document).ready(function($) {
 				dots: true,
 				arrows: false
 			}
-		}, 
+		},
 		]
 	});
 	$('.works-slider').slick({
@@ -155,7 +155,7 @@ jQuery(document).ready(function($) {
 				slidesToShow: 2,
 				slidesToScroll: 1,
 			}
-		}, 
+		},
 		{
 			breakpoint: 576,
 			settings: {
@@ -193,7 +193,7 @@ jQuery(document).ready(function($) {
 				slidesToShow: 2,
 				slidesToScroll: 2,
 			}
-		}, 
+		},
 		{
 			breakpoint: 576,
 			settings: {
@@ -235,7 +235,7 @@ jQuery(document).ready(function($) {
 				slidesToShow: 2,
 				slidesToScroll: 2,
 			}
-		}, 
+		},
 		{
 			breakpoint: 576,
 			settings: {
@@ -280,7 +280,7 @@ jQuery(document).ready(function($) {
 				slidesToScroll: 1,
 				speed: 400
 			}
-		}, 
+		},
 		{
 			breakpoint: 576,
 			settings: {
@@ -323,7 +323,7 @@ jQuery(document).ready(function($) {
 				slidesToScroll: 1,
 				speed: 400
 			}
-		}, 
+		},
 		{
 			breakpoint: 576,
 			settings: {
@@ -438,9 +438,9 @@ jQuery(document).ready(function($) {
 					$(this).after('<span class="error">Заполните поле</span>');
 					error = 4;
 				}
-			} 
+			}
 		});
-		
+
 		if (error == 0) {
 			/*отправка формы**/
 		} else {
@@ -471,7 +471,7 @@ jQuery(document).ready(function($) {
 			}
 		});
 	}
-		
+
 	$(document).find('.slick-cloned a').removeAttr('data-fancybox');
 	$(".fancybox").fancybox({
 		afterLoad: function(instance, current) {
@@ -498,7 +498,7 @@ jQuery(document).ready(function($) {
 			$('.scroll-to-top').removeClass('is-hidden');
 		});
 	}
-	
+
 	$('.scroll-to-top').on('click', function() {
 		$('html, body').animate({
 			scrollTop: 0
@@ -519,38 +519,3 @@ function lazyLoad($content) {
 			}
 		});
 	}
-if ($('#map').length) {
-
-	function showYaMaps() {
-		var script = document.createElement("script");
-		script.type = "text/javascript";
-		script.src = "https://api-maps.yandex.ru/2.1/?lang=ru_RU";
-		document.getElementById("map").appendChild(script);
-		script.onload = function() {
-			ymaps.ready(init);
-			var myMap,
-				myPlacemark;
-
-			function init() {
-				 myMap = new ymaps.Map("map", {
-          center: [55.85776606888105,37.66326949999996],
-          zoom: 13,
-          behaviors: ['default', 'scrollZoom']
-        });
-				myMap.behaviors.disable('scrollZoom');
-				myMap.controls.remove('geolocationControl');
-				myMap.controls.remove('searchControl');
-				myMap.controls.remove('trafficControl');
-				myMap.controls.remove('typeSelector');
-				myMap.controls.remove('fullscreenControl');
-				myMap.controls.remove('rulerControl');
-				myMap.behaviors.disable('scrollZoom');
-				myMap.geoObjects.add(new ymaps.Placemark([55.85776606888105,37.66326949999996], {
-					iconCaption: 'Верхоянская улица, 18 к.2',
-				}, {
-					preset: 'islands#redCircleDotIcon',
-				}));
-			}
-		}
-	} showYaMaps();
-}
