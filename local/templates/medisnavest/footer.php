@@ -152,5 +152,9 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
     <!-- end sent-successfully -->
 <? endif; ?>
 
+<div aria-hidden="true" class="modal fade js-modal" role="dialog" id="hidenContent">
+
+</div>
+
 </body>
 </html>

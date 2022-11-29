@@ -22,6 +22,7 @@ $page = $APPLICATION->GetCurPage(false);
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . "/css/main.css");
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/js/min.js");
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/js/main.js");
+    Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/js/custom.js");
     ?>
     <style>body {
             opacity: 0;
