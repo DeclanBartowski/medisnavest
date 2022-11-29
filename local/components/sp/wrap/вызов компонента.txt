@@ -1,0 +1,8 @@
+			<?$APPLICATION->IncludeComponent(
+				"sp:wrap", 
+				"", 
+				array(
+				'AJAX_MODE'=>'N'
+				),
+				false
+			);?>			

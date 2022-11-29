@@ -13,7 +13,6 @@ $(document).on('click', '[data-show-more]', function () {
         type: "GET",
         url: window.location.href,
         data: data,
-        timeout: 3000,
         success: function (data) {
             $('#hidenContent').html(data);
             $('[data-paginate-content]').append($('#hidenContent').find('[data-paginate-content]').html());

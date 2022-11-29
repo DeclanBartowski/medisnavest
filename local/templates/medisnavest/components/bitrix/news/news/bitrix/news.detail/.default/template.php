@@ -1,4 +1,6 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
+    die();
+}
 /** @var array $arParams */
 /** @var array $arResult */
 /** @global CMain $APPLICATION */
@@ -12,84 +14,82 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-<div class="news-detail">
-	<?if($arParams["DISPLAY_PICTURE"]!="N" && is_array($arResult["DETAIL_PICTURE"])):?>
-		<img
-			class="detail_picture"
-			border="0"
-			src="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>"
-			width="<?=$arResult["DETAIL_PICTURE"]["WIDTH"]?>"
-			height="<?=$arResult["DETAIL_PICTURE"]["HEIGHT"]?>"
-			alt="<?=$arResult["DETAIL_PICTURE"]["ALT"]?>"
-			title="<?=$arResult["DETAIL_PICTURE"]["TITLE"]?>"
-			/>
-	<?endif?>
-	<?if($arParams["DISPLAY_DATE"]!="N" && $arResult["DISPLAY_ACTIVE_FROM"]):?>
-		<span class="news-date-time"><?=$arResult["DISPLAY_ACTIVE_FROM"]?></span>
-	<?endif;?>
-	<?if($arParams["DISPLAY_NAME"]!="N" && $arResult["NAME"]):?>
-		<h3><?=$arResult["NAME"]?></h3>
-	<?endif;?>
-	<?if($arParams["DISPLAY_PREVIEW_TEXT"]!="N" && $arResult["FIELDS"]["PREVIEW_TEXT"]):?>
-		<p><?=$arResult["FIELDS"]["PREVIEW_TEXT"];unset($arResult["FIELDS"]["PREVIEW_TEXT"]);?></p>
-	<?endif;?>
-	<?if($arResult["NAV_RESULT"]):?>
-		<?if($arParams["DISPLAY_TOP_PAGER"]):?><?=$arResult["NAV_STRING"]?><br /><?endif;?>
-		<?echo $arResult["NAV_TEXT"];?>
-		<?if($arParams["DISPLAY_BOTTOM_PAGER"]):?><br /><?=$arResult["NAV_STRING"]?><?endif;?>
-	<?elseif($arResult["DETAIL_TEXT"] <> ''):?>
-		<?echo $arResult["DETAIL_TEXT"];?>
-	<?else:?>
-		<?echo $arResult["PREVIEW_TEXT"];?>
-	<?endif?>
-	<div style="clear:both"></div>
-	<br />
-	<?foreach($arResult["FIELDS"] as $code=>$value):
-		if ('PREVIEW_PICTURE' == $code || 'DETAIL_PICTURE' == $code)
-		{
-			?><?=GetMessage("IBLOCK_FIELD_".$code)?>:&nbsp;<?
-			if (!empty($value) && is_array($value))
-			{
-				?><img border="0" src="<?=$value["SRC"]?>" width="<?=$value["WIDTH"]?>" height="<?=$value["HEIGHT"]?>"><?
-			}
-		}
-		else
-		{
-			?><?=GetMessage("IBLOCK_FIELD_".$code)?>:&nbsp;<?=$value;?><?
-		}
-		?><br />
-	<?endforeach;
-	foreach($arResult["DISPLAY_PROPERTIES"] as $pid=>$arProperty):?>
-
-		<?=$arProperty["NAME"]?>:&nbsp;
-		<?if(is_array($arProperty["DISPLAY_VALUE"])):?>
-			<?=implode("&nbsp;/&nbsp;", $arProperty["DISPLAY_VALUE"]);?>
-		<?else:?>
-			<?=$arProperty["DISPLAY_VALUE"];?>
-		<?endif?>
-		<br />
-	<?endforeach;
-	if(array_key_exists("USE_SHARE", $arParams) && $arParams["USE_SHARE"] == "Y")
-	{
-		?>
-		<div class="news-detail-share">
-			<noindex>
-			<?
-			$APPLICATION->IncludeComponent("bitrix:main.share", "", array(
-					"HANDLERS" => $arParams["SHARE_HANDLERS"],
-					"PAGE_URL" => $arResult["~DETAIL_PAGE_URL"],
-					"PAGE_TITLE" => $arResult["~NAME"],
-					"SHORTEN_URL_LOGIN" => $arParams["SHARE_SHORTEN_URL_LOGIN"],
-					"SHORTEN_URL_KEY" => $arParams["SHARE_SHORTEN_URL_KEY"],
-					"HIDE" => $arParams["SHARE_HIDE"],
-				),
-				$component,
-				array("HIDE_ICONS" => "Y")
-			);
-			?>
-			</noindex>
+<div class="news-detailed_banner" style="background-image: url('<?= $arResult['DETAIL_PICTURE']['SRC']; ?>');">
+	<div class="container container-mod">
+		<div class="news-detailed_banner-content">
+            <? if ($arResult['PROPERTIES']['TITLE_DETAIL']['VALUE']) { ?>
+				<div class="section-title"><?= $arResult['PROPERTIES']['TITLE_DETAIL']['VALUE']; ?></div>
+            <? } ?>
+            <? if ($arResult['PROPERTIES']['TEXT_DETAIL']['~VALUE']['TEXT']) { ?>
+				<p>
+                    <?= $arResult['PROPERTIES']['TEXT_DETAIL']['~VALUE']['TEXT']; ?>
+				</p>
+            <? } ?>
 		</div>
-		<?
-	}
-	?>
+	</div>
 </div>
+<? if ($arResult['~DETAIL_TEXT']) { ?>
+	<div class="container container-mod">
+		<div class="news-detailed_item">
+            <?= $arResult['~DETAIL_TEXT']; ?>
+		</div>
+	</div>
+<? } ?>
+<div class="news-detailed_body">
+    <? if ($arResult['PROPERTIES']['TITLE_PIC_BLOCK']['VALUE']) { ?>
+		<div class="container container-large">
+            <? foreach ($arResult['PROPERTIES']['TITLE_PIC_BLOCK']['VALUE'] as $block) {
+                if ($block['picture']) {
+                    $picture = CFile::ResizeImageGet($block['picture'],
+                        ['width' => 1110, 'height' => 666],
+                        BX_RESIZE_IMAGE_PROPORTIONAL
+                    )['src'];
+                }
+                $divImgClass = 'order-md-2';
+                $figureClass = 'right-img';
+                $divTextClass = 'left-column';
+
+                if ($block['text_position']) {
+                    $divImgClass = '';
+                    $figureClass = '';
+                    $divTextClass = 'right-column';
+                }
+                ?>
+				<div class="row row-item align-items-center">
+                    <? if ($picture) { ?>
+						<div class="img-column <?= $divImgClass; ?>">
+							<figure class="news-detailed_img <?= $figureClass; ?>">
+								<img data-src="<?= $picture; ?>" alt="alt">
+							</figure>
+						</div>
+                    <? } ?>
+					<div class="desc-column <?= $divTextClass; ?>">
+						<div class="news-detailed-desc">
+                            <? if ($block['title']) { ?>
+								<div class="section-title"><?= $block['title']; ?></div>
+                            <? } ?>
+                            <? if ($block['text']) { ?>
+								<p><?= $block['text']; ?></p>
+                            <? } ?>
+						</div>
+					</div>
+				</div>
+            <? } ?>
+		</div>
+    <? } ?>
+	<div class="container container-mod">
+		<div class="news-detailed_item">
+            <? if ($arResult['PROPERTIES']['FOOTER_TITLE']['VALUE']) { ?>
+				<div class="section-title"><?= $arResult['PROPERTIES']['FOOTER_TITLE']['VALUE']; ?></div>
+            <? } ?>
+            <? if ($arResult['PROPERTIES']['FOOTER_TEXT']['~VALUE']['TEXT']) { ?>
+				<p><?= $arResult['PROPERTIES']['FOOTER_TEXT']['~VALUE']['TEXT']; ?></p>
+            <? } ?>
+		</div>
+		<span class="news-detailed_date"><?= $arResult['DISPLAY_ACTIVE_FROM']; ?></span>
+		<a href="<?= $arParams['SEF_FOLDER']; ?>" class="main-btn back-page_btn">
+			<span class="ico-arrow"></span><?= GetMessage('BACK'); ?>
+		</a>
+	</div>
+</div>
+

@@ -1,0 +1,1 @@
+<span class="text">производство собственных <span class="min">медицинских консолей</span></span>

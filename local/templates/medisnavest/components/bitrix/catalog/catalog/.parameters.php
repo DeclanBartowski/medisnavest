@@ -1327,3 +1327,10 @@ $arTemplateParameters['DETAIL_SHOW_VIEWED'] = array(
 
 // hack to hide component parameters by templates
 $arTemplateParameters['HIDE_USE_ALSO_BUY'] = array();
+
+$arTemplateParameters['SEF_URL_TEMPLATES_sale'] = array(
+    'PARENT' => 'SEF_MODE',
+    'NAME' => 'Акции',
+    "DEFAULT" => "",
+    "VARIABLES" => array(),
+);
