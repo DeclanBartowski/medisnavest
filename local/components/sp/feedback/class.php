@@ -44,6 +44,7 @@ class Feedback extends \CBitrixComponent implements Controllerable
             'IBLOCK_ADD',
             'IBLOCK_ID',
             'USE_CAPTCHA',
+            'OK_MESSAGE',
         ];
     }
 
@@ -59,9 +60,9 @@ class Feedback extends \CBitrixComponent implements Controllerable
         } else {
             try {
                 $this->processSaveData($request, $fileList);
-                $result = ['status' => 'S', 'msg' => 'Ваш отзыв успешно отправлен!'];
+                $result = ['status' => 'S', 'msg' => $this->arParams['OK_MESSAGE'] ?: 'Ваш отзыв успешно отправлен!'];
             } catch (\Exception $e) {
-                $result = ['status' => 'S', 'msg' => 'Ошибка отправки'];
+                $result = ['status' => 'E', 'msg' => 'Ошибка отправки'];
             }
         }
         return $result;
@@ -140,7 +141,7 @@ class Feedback extends \CBitrixComponent implements Controllerable
             $arLoadProductArray = [
                 "IBLOCK_ID" => intval($this->arParams['IBLOCK_ID']),
                 "PROPERTY_VALUES" => $request,
-                "NAME" => 'Отзыв',
+                "NAME" => 'Элемент',
                 "ACTIVE" => "N",
                 'PREVIEW_TEXT' => $request['PREVIEW_TEXT'],
                 'ACTIVE_FROM' => date('d.m.Y H:i'),

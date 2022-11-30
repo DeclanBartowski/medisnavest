@@ -61,7 +61,7 @@ $this->setFrameMode(true);
             <span class="product-card_price"><?= $arResult['PROPERTIES']['PRICE']['VALUE'] ?>  <span
                         class="rouble">i</span></span>
         </div>
-        <a href="#order-product" data-toggle="modal" data-title="<?= $arResult['NAME'] ?>"
+        <a href="#callback" data-toggle="modal" data-title="<?= GetMessage('CATALOG_ELEMENT_ORDER') ?> <?= $arResult['NAME'] ?>"
            class="main-btn product-card_btn"><?= GetMessage('CATALOG_ELEMENT') ?></a>
         <?= $arResult['DETAIL_TEXT'] ?>
     </div>

@@ -18,6 +18,12 @@ $(document).on('click', '[data-show-more]', function () {
             $('[data-paginate-content]').append($('#hidenContent').find('[data-paginate-content]').html());
             $('[data-paginate-nav]').html($('#hidenContent').find('[data-paginate-nav]').html());
             lazyLoad($('body'));
+            $('#hidenContent').html('');
         }
     });
+});
+
+$(document).on('click', '[data-title]', function () {
+    $('#callback .section-title.popup-title').text($(this).attr('data-title'));
+    $('#callback [name="PURPOSE"]').val($(this).attr('data-title'));
 });

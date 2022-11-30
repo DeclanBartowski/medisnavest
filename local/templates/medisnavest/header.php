@@ -20,6 +20,7 @@ $page = $APPLICATION->GetCurPage(false);
     Asset::getInstance()->addString('<link rel="apple-touch-icon" sizes="110x96" href="' . SITE_TEMPLATE_PATH . '/img/apple-touch-icon.png" />');
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . "/css/min.css");
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . "/css/main.css");
+    Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . "/css/costume.css");
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/js/min.js");
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/js/main.js");
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/js/custom.js");
@@ -58,27 +59,55 @@ $page = $APPLICATION->GetCurPage(false);
                             </div>
                         </div>
                         <div class="head-logo">
-                            <a href="/"><img data-src="<?= SITE_TEMPLATE_PATH ?>/img/static/logo.svg" alt="alt"></a>
+                            <a <?if ($page !== SITE_DIR) {?>href="<?= SITE_DIR;?>"<?}?>><img data-src="<?= SITE_TEMPLATE_PATH ?>/img/static/logo.svg" alt="alt"></a>
                         </div>
                         <nav class="head-nav">
                             <span class="menu_close-btn ico-close"></span>
-                            <ul class="head-menu">
-                                <li><a href="">Каталог товаров</a></li>
-                                <li><a href="">Услуги</a></li>
-                                <li><a href="">Наши работы</a></li>
-                                <li><a href="">Акции</a></li>
-                                <li><a href="">Компания</a></li>
-                                <li><a href="">Новости</a></li>
-                                <li><a href="">Контакты</a></li>
-                            </ul>
+                            <?$APPLICATION->IncludeComponent(
+                                "bitrix:menu",
+                                "header_menu",
+                                Array(
+                                    "ALLOW_MULTI_SELECT" => "N",
+                                    "CHILD_MENU_TYPE" => "left",
+                                    "DELAY" => "N",
+                                    "MAX_LEVEL" => "1",
+                                    "MENU_CACHE_GET_VARS" => array(""),
+                                    "MENU_CACHE_TIME" => "3600",
+                                    "MENU_CACHE_TYPE" => "N",
+                                    "MENU_CACHE_USE_GROUPS" => "Y",
+                                    "ROOT_MENU_TYPE" => "top",
+                                    "USE_EXT" => "N"
+                                )
+                            );?>
+
                             <div class="mobile_header-content">
-                                <a href="tel:+74012522440" class="head_phone-number">+7 (4012) 522-440</a>
-                                <a href="#callback" data-toggle="modal" class="callback-btn main-btn"><span
-                                            class="ico-phone"></span>Связаться с нами</a>
+                                <?$APPLICATION->IncludeComponent(
+                                    "bitrix:main.include",
+                                    "",
+                                    Array(
+                                        "AREA_FILE_SHOW" => "file",
+                                        "AREA_FILE_SUFFIX" => "inc",
+                                        "EDIT_TEMPLATE" => "",
+                                        "PATH" => "/include/header/phone.php"
+                                    )
+                                );?>
+                                <a href="#callback" data-toggle="modal" class="callback-btn main-btn">
+	                                <span class="ico-phone"></span>
+                                    <?$APPLICATION->IncludeComponent(
+                                        "bitrix:main.include",
+                                        "",
+                                        Array(
+                                            "AREA_FILE_SHOW" => "file",
+                                            "AREA_FILE_SUFFIX" => "inc",
+                                            "EDIT_TEMPLATE" => "",
+                                            "PATH" => "/include/header/contact-us.php"
+                                        )
+                                    );?>
+                                </a>
                             </div>
                         </nav>
-                        <form action="#" class="search-form">
-                            <input type="text" class="search-form_input" placeholder="Поиск по сайту">
+                        <form action="/poisk/" class="search-form">
+                            <input type="text" class="search-form_input" placeholder="Поиск по сайту" name="q">
                             <div class="wrapper_search-form_submit ico-search"><input type="submit"
                                                                                       class="search-form_submit"
                                                                                       value="">
@@ -87,9 +116,28 @@ $page = $APPLICATION->GetCurPage(false);
                         <span class="head_search-icon ico-search"></span>
                     </div>
                     <div class="head_right-column">
-                        <a href="tel:+74012522440" class="head_phone-number">+7 (4012) 522-440</a>
-                        <a href="#callback" data-toggle="modal" class="callback-btn"><span class="ico-phone"></span>Связаться
-                            с нами</a>
+                        <?$APPLICATION->IncludeComponent(
+                            "bitrix:main.include",
+                            "",
+                            Array(
+                                "AREA_FILE_SHOW" => "file",
+                                "AREA_FILE_SUFFIX" => "inc",
+                                "EDIT_TEMPLATE" => "",
+                                "PATH" => "/include/header/phone.php"
+                            )
+                        );?>
+                        <a href="#callback" data-toggle="modal" class="callback-btn"><span class="ico-phone"></span>
+                            <?$APPLICATION->IncludeComponent(
+                                "bitrix:main.include",
+                                "",
+                                Array(
+                                    "AREA_FILE_SHOW" => "file",
+                                    "AREA_FILE_SUFFIX" => "inc",
+                                    "EDIT_TEMPLATE" => "",
+                                    "PATH" => "/include/header/contact-us.php"
+                                )
+                            );?>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -36,6 +36,11 @@ $arComponentParameters = [
             "TYPE" => "STRING",
             "PARENT" => "BASE",
         ],
+        "OK_MESSAGE" => [
+            "NAME" => Loc::getMessage('SPF_OK_MESSAGE'),
+            "TYPE" => "STRING",
+            "PARENT" => "BASE",
+        ],
     ]
 ];
 

@@ -3,42 +3,25 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
     die();
 } ?>
 <? if (ERROR_404 != 'Y'): ?>
-    <div class="form-section">
-        <div class="container container-mod">
-            <div class="row align-items-center">
-                <div class="col-md-5 left-column">
-                    <div class="section-title">У вас появились вопросы?</div>
-                    <p>
-                        Отправьте нам свои данные и мы с вами свяжемся в ближайшее время
-                    </p>
-                </div>
-                <div class="col-md-7">
-                    <form action="#" class="static-form">
-                        <div class="form-group">
-                            <input type="text" class="form-control requiredField callback-name" placeholder="Ваше имя">
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" class="form-control requiredField callback-phone"
-                                   placeholder="Номер телефона">
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control form-textarea" placeholder="Ваш вопрос"></textarea>
-                        </div>
-                        <div class="static-form_footer">
-										<span class="form-policy">
-											<span class="min">Нажимая на кнопку “отправить” вы соглашаетесь</span>
-											с <a href="">политикой конфиденциальности</a>
-										</span>
-                            <div class="wrapper_form-submit_btn main-btn">
-                                Отправить <span class="ico-arrow"></span>
-                                <input type="submit" class="form-submit_btn js_form-submit" value="">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?$APPLICATION->IncludeComponent(
+        "sp:feedback",
+        "questions",
+        array(
+            "AJAX_MODE" => "N",
+            "AJAX_OPTION_ADDITIONAL" => "",
+            "AJAX_OPTION_HISTORY" => "N",
+            "AJAX_OPTION_JUMP" => "N",
+            "AJAX_OPTION_STYLE" => "Y",
+            "EVENT_MESSAGE_ID" => "11",
+            "IBLOCK_ADD" => "Y",
+            'OK_MESSAGE' => 'Ваше сообщение отправлено.',
+            "IBLOCK_ID" => "13",
+            "POLICY_URL" => "/politika-konfidentsialnosti/",
+            "USE_CAPTCHA" => "Y",
+            "COMPONENT_TEMPLATE" => "questions",
+        ),
+        false
+    );?>
 <? endif; ?>
 </main>
 <? if (ERROR_404 != 'Y'): ?>
@@ -49,63 +32,186 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
             <div class="row top-row">
                 <div class="col-md-4">
                     <div class="footer-logo">
-                        <a href="/"><img data-src="<?= SITE_TEMPLATE_PATH ?>/img/static/logo.svg" alt="alt"></a>
+                        <a <?if ($page !== SITE_DIR) {?>href="<?= SITE_DIR;?>"<?}?>><img data-src="<?= SITE_TEMPLATE_PATH ?>/img/static/logo.svg" alt="alt"></a>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="footer_phone-number">
-                        <a href="tel:+74012522440">+7 (4012) 522-440</a>
-                        <a href="tel:88004442740">8 (800) 444-27-40</a>
+                        <? $APPLICATION->IncludeComponent(
+                            "bitrix:main.include",
+                            "",
+                            Array(
+                                "AREA_FILE_RECURSIVE" => "Y",
+                                "AREA_FILE_SHOW" => "file",
+                                "AREA_FILE_SUFFIX" => "inc",
+                                "EDIT_TEMPLATE" => "",
+                                "PATH" => "/include/footer/phone.php"
+                            )
+                        ); ?>
+                        <? $APPLICATION->IncludeComponent(
+                            "bitrix:main.include",
+                            "",
+                            Array(
+                                "AREA_FILE_RECURSIVE" => "Y",
+                                "AREA_FILE_SHOW" => "file",
+                                "AREA_FILE_SUFFIX" => "inc",
+                                "EDIT_TEMPLATE" => "",
+                                "PATH" => "/include/footer/phone2.php"
+                            )
+                        ); ?>
                     </div>
                 </div>
                 <div class="col-md-4 right-column right-column_top">
-                    <a href="mailto:info@medisana-med.ru" class="footer-email">info@medisana-med.ru</a>
-                    <a href="#callback" data-toggle="modal" class="callback-btn footer_callback-btn"><span
-                                class="ico-phone"></span>Связаться с нами</a>
+                    <? $APPLICATION->IncludeComponent(
+                        "bitrix:main.include",
+                        "",
+                        Array(
+                            "AREA_FILE_RECURSIVE" => "Y",
+                            "AREA_FILE_SHOW" => "file",
+                            "AREA_FILE_SUFFIX" => "inc",
+                            "EDIT_TEMPLATE" => "",
+                            "PATH" => "/include/footer/email.php"
+                        )
+                    ); ?>
+
+                    <a href="#callback" data-toggle="modal" class="callback-btn footer_callback-btn">
+	                    <span class="ico-phone"></span>
+	                    <? $APPLICATION->IncludeComponent(
+                            "bitrix:main.include",
+                            "",
+                            Array(
+                                "AREA_FILE_RECURSIVE" => "Y",
+                                "AREA_FILE_SHOW" => "file",
+                                "AREA_FILE_SUFFIX" => "inc",
+                                "EDIT_TEMPLATE" => "",
+                                "PATH" => "/include/footer/contact_us.php"
+                            )
+                        ); ?>
+                    </a>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
-                    <span class="footer-title"><a href="">Услуги</a></span>
-                    <ul class="footer-menu">
-                        <li><a href="">Чистые помещения под ключ</a></li>
-                        <li><a href="">Проектирование и монтаж медицинских газов</a></li>
-                        <li><a href="">Установка консолей жизнеобеспечения</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <span class="footer-title"><a href="">Каталог товаров</a></span>
-                    <ul class="footer-menu">
-                        <li><a href="">Клапанные коробки</a></li>
-                        <li><a href="">Консоли типа мост</a></li>
-                        <li><a href="">Медицинская консоль собственного производства</a></li>
-                        <li><a href="">Настенные консоли</a></li>
-                        <li><a href="">Палатные и прикроватные консоли</a></li>
-                        <li><a href="">Потолочные консоли</a></li>
-                        <li><a href="">Флуометр</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 right-column">
-                    <ul class="footer-mod_menu">
-                        <li><a href="">Акции</a></li>
-                        <li><a href="">Компания</a></li>
-                        <li><a href="">Новости</a></li>
-                        <li><a href="">Контакты</a></li>
-                    </ul>
-                </div>
+                <?$APPLICATION->IncludeComponent(
+                    "bitrix:news.list",
+                    "footer_menu",
+                    Array(
+                        "ACTIVE_DATE_FORMAT" => "d.m.Y",
+                        "ADD_SECTIONS_CHAIN" => "N",
+                        "AJAX_MODE" => "N",
+                        "AJAX_OPTION_ADDITIONAL" => "",
+                        "AJAX_OPTION_HISTORY" => "N",
+                        "AJAX_OPTION_JUMP" => "N",
+                        "AJAX_OPTION_STYLE" => "Y",
+                        "CACHE_FILTER" => "N",
+                        "CACHE_GROUPS" => "Y",
+                        "CACHE_TIME" => "36000000",
+                        "CACHE_TYPE" => "A",
+                        "CHECK_DATES" => "Y",
+                        "DETAIL_URL" => "",
+                        "DISPLAY_BOTTOM_PAGER" => "N",
+                        "DISPLAY_DATE" => "Y",
+                        "DISPLAY_NAME" => "Y",
+                        "DISPLAY_PICTURE" => "Y",
+                        "DISPLAY_PREVIEW_TEXT" => "Y",
+                        "DISPLAY_TOP_PAGER" => "N",
+                        "FIELD_CODE" => array("", ""),
+                        "FILTER_NAME" => "",
+                        "HIDE_LINK_WHEN_NO_DETAIL" => "N",
+                        "IBLOCK_ID" => "3",
+                        "IBLOCK_TYPE" => "content",
+                        "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+                        "INCLUDE_SUBSECTIONS" => "Y",
+                        "MESSAGE_404" => "",
+                        "NEWS_COUNT" => "20",
+                        "PAGER_BASE_LINK_ENABLE" => "N",
+                        "PAGER_DESC_NUMBERING" => "N",
+                        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+                        "PAGER_SHOW_ALL" => "N",
+                        "PAGER_SHOW_ALWAYS" => "N",
+                        "PAGER_TEMPLATE" => ".default",
+                        "PAGER_TITLE" => "Новости",
+                        "PARENT_SECTION" => "",
+                        "PARENT_SECTION_CODE" => "",
+                        "PREVIEW_TRUNCATE_LEN" => "",
+                        "PROPERTY_CODE" => array("", ""),
+                        "SET_BROWSER_TITLE" => "N",
+                        "SET_LAST_MODIFIED" => "N",
+                        "SET_META_DESCRIPTION" => "N",
+                        "SET_META_KEYWORDS" => "N",
+                        "SET_STATUS_404" => "N",
+                        "SET_TITLE" => "N",
+                        "SHOW_404" => "N",
+                        "SORT_BY1" => "SORT",
+                        "SORT_BY2" => "NAME",
+                        "SORT_ORDER1" => "ASC",
+                        "SORT_ORDER2" => "ASC",
+                        "STRICT_SECTION_CHECK" => "N"
+                    )
+                );?>
+                <?$APPLICATION->IncludeComponent(
+                    "bitrix:catalog.section.list",
+                    "footer_menu",
+                    Array(
+                        "ADD_SECTIONS_CHAIN" => "N",
+                        "CACHE_FILTER" => "N",
+                        "CACHE_GROUPS" => "Y",
+                        "CACHE_TIME" => "36000000",
+                        "CACHE_TYPE" => "A",
+                        "COUNT_ELEMENTS" => "Y",
+                        "COUNT_ELEMENTS_FILTER" => "CNT_ACTIVE",
+                        "FILTER_NAME" => "sectionsFilter",
+                        "IBLOCK_ID" => "8",
+                        "IBLOCK_TYPE" => "content",
+                        "SECTION_CODE" => "",
+                        "SECTION_FIELDS" => array("NAME", ""),
+                        "SECTION_ID" => "",
+                        "SECTION_URL" => "",
+                        "SECTION_USER_FIELDS" => array("", ""),
+                        "TOP_DEPTH" => "1"
+                    )
+                );?>
+                <?$APPLICATION->IncludeComponent(
+                    "bitrix:menu",
+                    "footer_menu",
+                    Array(
+                        "ALLOW_MULTI_SELECT" => "N",
+                        "CHILD_MENU_TYPE" => "left",
+                        "DELAY" => "N",
+                        "MAX_LEVEL" => "1",
+                        "MENU_CACHE_GET_VARS" => array(""),
+                        "MENU_CACHE_TIME" => "3600",
+                        "MENU_CACHE_TYPE" => "N",
+                        "MENU_CACHE_USE_GROUPS" => "Y",
+                        "ROOT_MENU_TYPE" => "footer",
+                        "USE_EXT" => "N"
+                    )
+                );?>
+
             </div>
             <div class="main-footer_bottom">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="copyright">&#169; Компания ООО "Медисанавест"</div>
+                        <div class="copyright"><? $APPLICATION->IncludeComponent(
+                                "bitrix:main.include",
+                                "",
+                                Array(
+                                    "AREA_FILE_RECURSIVE" => "Y",
+                                    "AREA_FILE_SHOW" => "file",
+                                    "AREA_FILE_SUFFIX" => "inc",
+                                    "EDIT_TEMPLATE" => "",
+                                    "PATH" => "/include/footer/copyright.php"
+                                )
+                            ); ?>
+                        </div>
                     </div>
                     <div class="col-md-8 bottom_right-column">
                         <div class="main-footer_bottom-btns">
-                            <a href="">Пользовательское соглашение</a>
-                            <a href="">Политика конфиденциальности</a>
+                            <a href="/polzovatelskoe-soglashenie/">Пользовательское соглашение</a>
+                            <a href="/politika-konfidentsialnosti/">Политика конфиденциальности</a>
                         </div>
-                        <a href="" class="footer-studio"><img data-src="<?= SITE_TEMPLATE_PATH ?>/img/static/studio.svg"
-                                                              alt="alt"></a>
+                        <a href="https://webmedia.by/" class="footer-studio" target="_blank" rel="nofollow">
+	                        <img data-src="<?= SITE_TEMPLATE_PATH ?>/img/static/studio.svg" alt="alt">
+                        </a>
                     </div>
                 </div>
             </div>
@@ -115,27 +221,25 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
     <div class="scroll-to-top"></div>
     </div>
     <!-- END GLOBAL-WRAPPER -->
-    <div aria-hidden="true" class="modal fade js-modal" id="callback" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <button class="close" data-dismiss="modal" type="button"><span class="ico-close"></span></button>
-                <div class="section-title popup-title">Заказать звонок</div>
-                <span class="popup_top-text">Оставьте нам свои данные и наши специалисты свяжутся с вами в ближайшее время</span>
-                <form action="#" class="callback-form">
-                    <div class="form-group">
-                        <input type="text" class="form-control requiredField callback-name" placeholder="Имя">
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" class="form-control requiredField callback-phone" placeholder="Телефон">
-                    </div>
-                    <input type="submit" class="popup-form_submit main-btn js_form-submit" value="Отправить">
-                    <div class="popup-policy">
-                        Нажимая на кнопку “Отправить” вы даете согласие на обработку персональных данных.
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    <?$APPLICATION->IncludeComponent(
+        "sp:feedback",
+        "callback",
+        array(
+            "AJAX_MODE" => "N",
+            "AJAX_OPTION_ADDITIONAL" => "",
+            "AJAX_OPTION_HISTORY" => "N",
+            "AJAX_OPTION_JUMP" => "N",
+            "AJAX_OPTION_STYLE" => "Y",
+            "EVENT_MESSAGE_ID" => "12",
+            "IBLOCK_ADD" => "Y",
+            'OK_MESSAGE' => 'Ваше сообщение отправлено.',
+            "IBLOCK_ID" => "14",
+            "POLICY_URL" => "/politika-konfidentsialnosti/",
+            "USE_CAPTCHA" => "Y",
+            "COMPONENT_TEMPLATE" => "callback",
+        ),
+        false
+    );?>
     <!-- end callback -->
     <div aria-hidden="true" class="modal fade js-modal" role="dialog" id="sent-successfully">
         <div class="modal-dialog modal-dialog_mod modal-dialog-centered" role="document">

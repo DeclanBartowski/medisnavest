@@ -3,6 +3,7 @@
 }
 
 use \Bitrix\Main\Localization\Loc;
+use Bitrix\Main\Grid\Declension;
 
 /**
  * @global CMain $APPLICATION
@@ -141,8 +142,22 @@ $generalParams = [
     'MESS_BTN_ADD_TO_BASKET' => $arParams['~MESS_BTN_ADD_TO_BASKET'],
     'MESS_NOT_AVAILABLE' => $arParams['~MESS_NOT_AVAILABLE']
 ];
+
+
+
+$productDeclension = new Declension('товар', 'товара', 'товаров');
+
+$this->SetViewTarget('itemsCount');
+echo $arResult["NAV_RESULT"]->NavRecordCount . ' ' . $productDeclension->get($arResult["NAV_RESULT"]->NavRecordCount);
+$this->EndViewTarget();
+
+
+
 ?>
-<? if ($arResult['ITEMS']) { ?>
+
+<? if ($arResult['ITEMS']) {
+    $bxajaxid = CAjax::GetComponentID($component->__name, $component->__template->__name, $component->arParams['AJAX_OPTION_ADDITIONAL']);
+	?>
     <div class="row catalog-content" data-paginate-content>
         <?
         foreach ($arResult['ITEMS'] as $item) {

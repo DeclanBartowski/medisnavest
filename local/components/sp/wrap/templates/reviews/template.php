@@ -102,7 +102,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 		"EVENT_MESSAGE_ID" => "",
 		"IBLOCK_ADD" => "Y",
 		"IBLOCK_ID" => "2",
-		"POLICY_URL" => "",
+		"POLICY_URL" => "/politika-konfidentsialnosti/",
 		"USE_CAPTCHA" => "Y",
 		"COMPONENT_TEMPLATE" => "reviews"
 	),

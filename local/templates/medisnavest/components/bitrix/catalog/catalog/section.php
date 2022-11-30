@@ -116,6 +116,9 @@ if ($sectionListParams["COUNT_ELEMENTS"] === "Y") {
             unset($sectionListParams);
             ?>
             <?
+            if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                $APPLICATION->RestartBuffer();
+            }
             $intSectionID = $APPLICATION->IncludeComponent(
                 "bitrix:catalog.section",
                 "",
@@ -244,6 +247,9 @@ if ($sectionListParams["COUNT_ELEMENTS"] === "Y") {
                 ],
                 $component
             );
+            if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                die();
+            }
             ?>
         </div>
     </section>

@@ -26,11 +26,16 @@ $this->setFrameMode(true);
         <h1><?=$APPLICATION->ShowTitle(false)?></h1>
 
 
-<?$APPLICATION->IncludeComponent(
+<?
+if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+	$APPLICATION->RestartBuffer();
+}
+
+$APPLICATION->IncludeComponent(
 	"bitrix:news.list",
 	"",
 	Array(
-	        'AJAX_MODE' =>  'Y',
+        /*'AJAX_MODE' =>  'Y',*/
 		"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
 		"IBLOCK_ID" => $arParams["IBLOCK_ID"],
 		"NEWS_COUNT" => $arParams["NEWS_COUNT"],
@@ -79,6 +84,11 @@ $this->setFrameMode(true);
 		"CHECK_DATES" => $arParams["CHECK_DATES"],
 	),
 	$component
-);?>
+);
+
+if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    die();
+}
+?>
     </div>
 </section>
